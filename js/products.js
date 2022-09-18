@@ -63,7 +63,7 @@ function showProductsList(array){
 
     for(const product of array){ 
         htmlContentToAppend += `
-        <div class="list-group-item list-group-item-action">
+        <div class="list-group-item list-group-item-action" id="`+ product.id +`">
             <div class="row">
                 <div class="col-3">
                     <img src="` + product.image + `" alt="product image" class="img-thumbnail">
@@ -81,7 +81,21 @@ function showProductsList(array){
             </div>
         </div>
         `
-        document.getElementById("cat-list-container").innerHTML = htmlContentToAppend; 
-    }
-}
+        document.getElementById("cat-list-container").innerHTML = htmlContentToAppend;
 
+
+    }
+
+    for(const product of document.getElementsByClassName("list-group-item list-group-item-action")){
+        
+        document.getElementById(product.id).addEventListener("click", function() {
+            localStorage.setItem("prodID", product.id);
+            window.location = "product-info.html"
+
+        })
+    }
+
+
+
+
+}

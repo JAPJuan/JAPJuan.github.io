@@ -1,12 +1,22 @@
 document.addEventListener("DOMContentLoaded", init)
 
 function init(){
-    document.getElementById("ingresar").addEventListener("click", send);
+    document.getElementById("ingresar").addEventListener("click", validate);
+    gapi.load('auth2', function() {
+        /* Ready. Make a call to gapi.auth2.init or some other API */
+      });
+    
 }
+
+function send(email){    
+  localStorage.setItem('userEmail', email);
+  window.location.href = "home.html";
+
+}
+
 
 function validate(){
     let valid = true
-    localStorage.setItem('userEmail',document.getElementById("email").value );
     
     for(inpt of document.getElementsByClassName("form-control")){
         if(inpt.value == ""){
@@ -15,14 +25,22 @@ function validate(){
         }
     }
 
-    return valid   
+    if(valid){send(document.getElementById("email").value)}
 }
 
-function send(ev){
-    ev.preventDefault()
+function onSignIn(googleUser) {
+    console.log(googleUser)
+    var profile = googleUser.getBasicProfile();
 
-    if (validate()){
-        console.log(document.getElementById("email").value)
-        window.location.href = "home.html";
-    }
-}
+    send(profile.getEmail())
+
+  }
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+
+

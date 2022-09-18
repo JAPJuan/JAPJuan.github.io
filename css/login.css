@@ -19,6 +19,7 @@ footer{
 
 button{
   margin-top: 10%;
+  margin-bottom: 5%;
 }
 
 .form-signin {
@@ -43,3 +44,4 @@ button{
 .form-signin .form-floating:focus-within {
   z-index: 2;
 }
+

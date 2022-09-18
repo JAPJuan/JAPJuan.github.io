@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", function(){
-
-    document.getElementById("navEmail").innerHTML +=  localStorage.getItem("userEmail");
     
     document.getElementById("autos").addEventListener("click", function() {
         localStorage.setItem("catID", 101);
