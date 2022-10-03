@@ -23,7 +23,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav w-100 justify-content-between">
           <li class="nav-item">
-            <a class="nav-link" href="index.html">Inicio</a>
+            <a class="nav-link" href="home.html">Inicio</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="categories.html">Categorías</a>
@@ -32,7 +32,14 @@
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="" id="navEmail"></a>
+            <div class="dropdown">
+              <a class="nav-link dropdown-toggle" href="" id="navEmail" data-bs-toggle="dropdown"></a>
+              <ul class="dropdown-menu" aria-labelledby="navEmail">
+                <li><a class="dropdown-item" href="my-profile.html">Mi perfil</a></li>
+                <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>
+                <li><a class="dropdown-item" href="index.html">Cerrar sesión</a></li>
+              </ul>
+            </div>
           </li>
         </ul>
       </div>
@@ -40,8 +47,23 @@
   </nav>
   <main>
     
-    <div class="container" id="prod-info-container">
+    <div class="container">
+      <div id="prod-info-container">
 
+      </div>
+      <div id="carousel" class="carousel slide w-50" data-bs-ride="carousel">
+        <div class="carousel-inner" id="prodCarousel">
+
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
     </div>
   
     <div class="container">
@@ -69,7 +91,14 @@
           </select>
         </div>
         <button class="btn btn-lg btn-primary" type="submit" onclick="showUserComm()">Enviar</button>
-
+        <hr class="solid">
+        <h4>Productos relacionados</h4>
+        <div class="container">
+          <div class="row">
+            <div id="relatedThumb" class="card-group">
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -95,6 +124,7 @@
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/product-info.js"></script>
+  
 </body>
 
 </html>

@@ -21,7 +21,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav w-100 justify-content-between">
           <li class="nav-item">
-            <a class="nav-link active" href="index.html">Inicio</a>
+            <a class="nav-link active" href="home.html">Inicio</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="categories.html">Categorías</a>
@@ -30,7 +30,14 @@
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="" id="navEmail"></a>
+            <div class="dropdown">
+              <a class="nav-link dropdown-toggle" href="" id="navEmail" data-bs-toggle="dropdown"></a>
+              <ul class="dropdown-menu" aria-labelledby="navEmail">
+                <li><a class="dropdown-item" href="my-profile.html">Mi perfil</a></li>
+                <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>
+                <li><a class="dropdown-item" href="index.html">Cerrar sesión</a></li>
+              </ul>
+            </div>
           </li>
         </ul>
       </div>
@@ -42,7 +49,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-4">
-            <div class="card mb-4 shadow-sm custom-card cursor-active" id="autos">
+            <div class="card mb-4 shadow-sm custom-card cursor-active" id="101">
               <img class="bd-placeholder-img card-img-top" src="img/cars_index.jpg"
                 alt="Imgagen representativa de la categoría 'Autos'">
               <h3 class="m-3">Autos</h3>
@@ -52,7 +59,7 @@
             </div>
           </div>
           <div class="col-md-4">
-            <div class="card mb-4 shadow-sm custom-card cursor-active" id="juguetes">
+            <div class="card mb-4 shadow-sm custom-card cursor-active" id="102">
               <img class="bd-placeholder-img card-img-top" src="img/toys_index.jpg"
                 alt="Imgagen representativa de la categoría 'Juguetes'">
               <h3 class="m-3">Juguetes</h3>
@@ -62,7 +69,7 @@
             </div>
           </div>
           <div class="col-md-4">
-            <div class="card mb-4 shadow-sm custom-card cursor-active" id="muebles">
+            <div class="card mb-4 shadow-sm custom-card cursor-active" id="103">
               <img class="bd-placeholder-img card-img-top" src="img/furniture_index.jpg"
                 alt="Imgagen representativa de la categoría 'Muebles'">
               <h3 class="m-3">Muebles</h3>
@@ -89,7 +96,7 @@
     </div>
   </footer>
   <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/index.js"></script>
+  <script src="js/home.js"></script>
   <script src="js/init.js"></script>
 </body>
 
