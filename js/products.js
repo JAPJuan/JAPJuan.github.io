@@ -10,11 +10,13 @@ document.addEventListener("DOMContentLoaded", function(e){
             cat = resultObj.data;
             productsArray = cat.products
             showProductsList(productsArray);
-            console.log(productsArray)
         }
     });
 });
 
+/**
+ * Sorts the productsArray array by most to less expensive and shows it using the showProductsList function.
+ */
 function sortByMostEx(){
     productsArray.sort(function(x, y){
         return y.cost - x.cost;
@@ -22,6 +24,9 @@ function sortByMostEx(){
     showProductsList(productsArray);
 }
 
+/**
+ * Sorts the productsArray array by less to most expensive and shows it using the showProductsList function.
+ */
 function sortByLessEx(){
     productsArray.sort(function(x, y){
         return  x.cost - y.cost;
@@ -30,6 +35,9 @@ function sortByLessEx(){
 
 }
 
+/**
+ * Sorts the productsArray array by most to less sold and shows it using the showProductsList function.
+ */
 function sortByRelevant(){
     productsArray.sort(function(x, y){
         return y.soldCount - x.soldCount;
@@ -38,16 +46,19 @@ function sortByRelevant(){
 
 }
 
+/**
+ * Filters the productsArray array by the range specified on the page and shows it using the showProductsList function.
+ */
 function filtrar(){
     productsArray = cat.products   
     productsArray = productsArray.filter(product => product.cost >= document.getElementById("rangeFilterCountMin").value && product.cost <= document.getElementById("rangeFilterCountMax").value)
     showProductsList(productsArray)
-
-
 }
 
-function limpiar(){
-    
+/**
+ * Sets the value of the filters to null, restores the productsArray array to default and shows it using the show ProductsList function.
+ */
+function limpiar(){   
     document.getElementById("rangeFilterCountMin").value = ""
     document.getElementById("rangeFilterCountMax").value = ""
     productsArray = cat.products
@@ -56,12 +67,15 @@ function limpiar(){
 }
 
 
-
-function showProductsList(array){
+/**
+ * Shows the products information of an array of objects and adds the click on to move to its detailed information page functionality.
+ * @param {array} prodArray 
+ */
+function showProductsList(prodArray){
     let htmlContentToAppend = "";
     document.getElementById("cat-name").innerHTML = "Verás aquí todos los productos de la categoría " + cat.catName
 
-    for(const product of array){ 
+    for(const product of prodArray){ 
         htmlContentToAppend += `
         <div class="list-group-item list-group-item-action" id="`+ product.id +`">
             <div class="row">

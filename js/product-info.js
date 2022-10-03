@@ -5,15 +5,19 @@ document.addEventListener("DOMContentLoaded", function(e){
             prod = resultObj.data;
             showProductsInfo(prod);
             showProductsComm()
+            showProductsRelated(prod)
         }
     });
 });
 
-
+/**
+ * Shows the products specific information: name, cost, description, category, number sold and images.
+ * @param {object} product 
+ */
 function showProductsInfo(product){
+    console.log(product)
 
-
-        document.getElementById("prod-info-container").innerHTML = `
+        document.getElementById("prod-info-container").innerHTML += `
         <h1>` + product.name + `</h1>
         <hr class="solid">
         <h4>Precio</h4>
@@ -25,15 +29,57 @@ function showProductsInfo(product){
         <h4>Cantidad de vendidos</h4>
         <p>` + product.soldCount + `</p>
         <h4>Imágenes ilustrativas</h4>
-        <div class="row-container" id="img"></div>
         `
 
-        for(imagen of product.images){
-            document.getElementById("img").innerHTML += `<img src="` + imagen + `" alt="product image" class="img-thumbnail"></img>`
+        for(let i = 0; i < product.images.length; i++){
+            if(i === 0){
+                document.getElementById("prodCarousel").innerHTML += `<div class="carousel-item active">
+                <img src="` + product.images[i] + `" class="d-block w-100" alt="Product image">
+                </div>`
+            } else {
+                document.getElementById("prodCarousel").innerHTML += `<div class="carousel-item">
+                <img src="` + product.images[i] + `" class="d-block w-100" alt="Product image">
+                </div>`
+
+            }
+            
+
         }
     };
 
+/**
+ * Shows the products related products thumbnails, and adds the click on the image to go to the product functionality.
+ * @param {object} product 
+ */   
+function showProductsRelated(product){
 
+    for(const relatedProd of product.relatedProducts){
+        document.getElementById("relatedThumb").innerHTML += `
+        <div class "col">
+            <div class="card h-90" id="`+ relatedProd.id +`" style="width: 15rem;">
+                <img class="card-img-top" src="` + relatedProd.image + `" alt="Card image cap">
+                <div class="card-footer">
+                    <p>` + relatedProd.name + `</p>
+                </div>
+            </div>
+        </div>`
+    }
+
+    
+    for(const relatedProd of product.relatedProducts){
+
+        document.getElementById(relatedProd.id).addEventListener("click", function() {
+            localStorage.setItem("prodID", relatedProd.id);
+            window.location = "product-info.html"
+
+        })
+    }
+
+}   
+
+/**
+ * Gets the JSON data for the comments of the current product and iterates through them with the showComment function.
+ */
 function showProductsComm(){
     getJSONData(PRODUCT_INFO_COMMENTS_URL + localStorage.getItem("prodID") + ".json").then(function(resultObj){
         if (resultObj.status === "ok"){
@@ -45,6 +91,11 @@ function showProductsComm(){
         }})}
 
 
+/**
+ * Returns the Bootstrap stars specified by the argument.
+ * @param {Number} starsNum
+ * @returns {String} Bootstrap stars specified by the argument.
+ */
 function showStars(starsNum){
     let stars =""
 
@@ -54,7 +105,13 @@ function showStars(starsNum){
     return stars
     }
 
-
+/**
+ * Shows a comment with the specified user, date, number of stars and description.
+ * @param {string} user 
+ * @param {number} date 
+ * @param {number} stars 
+ * @param {string} description 
+ */
 function showComment(user, date, stars, description){
     let htmlContentToAppend = ""
     
@@ -70,7 +127,9 @@ function showComment(user, date, stars, description){
     document.getElementById("prod-comms-container").innerHTML += htmlContentToAppend
 }
 
-
+/**
+ * Shows the users provided comment with its email, stars rating and current date.
+ */
 function showUserComm(){
     date = new Date();
     const formattedDate = date.toLocaleString().replace(",", " ").replace("/", "-").replace("/", "-")
