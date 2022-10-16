@@ -1,3 +1,5 @@
+let prod = []
+
 document.addEventListener("DOMContentLoaded", function(e){
     getJSONData(PRODUCT_INFO_URL + localStorage.getItem("prodID") + ".json").then(function(resultObj){
         if (resultObj.status === "ok")
@@ -15,10 +17,9 @@ document.addEventListener("DOMContentLoaded", function(e){
  * @param {object} product 
  */
 function showProductsInfo(product){
-    console.log(product)
 
         document.getElementById("prod-info-container").innerHTML += `
-        <h1>` + product.name + `</h1>
+        <div class="row"><h1 class="col-7">` + product.name + `</h1><button class="btn col-1 btn-lg btn-primary" type="button" onclick="addToCart()">Comprar</button></div>
         <hr class="solid">
         <h4>Precio</h4>
         <p>` + product.currency + " " +  product.cost +  `</p>
@@ -135,4 +136,12 @@ function showUserComm(){
     const formattedDate = date.toLocaleString().replace(",", " ").replace("/", "-").replace("/", "-")
 
     showComment(localStorage.getItem("userEmail"), formattedDate , document.getElementById("commStars").value,  document.getElementById("commDesc").value)
+}
+
+/**
+ * Adds the currents products id to the localstorage string list corresponding to the users cart.
+ */
+function addToCart(){
+    localStorage.getItem("cartProdsStr") ? null : localStorage.setItem("cartProdsStr", "")
+    localStorage.setItem("cartProdsStr", localStorage.getItem("cartProdsStr") + " " + prod.id) 
 }
