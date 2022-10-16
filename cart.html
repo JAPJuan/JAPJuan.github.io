@@ -43,13 +43,68 @@
       </div>
     </div>
   </nav>
+  
   <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+    <div class="container pt-4">
+      <h1>Carrito de compras</h1>
+      
+      <h3 class="pt-5 pb-4">Artículos a comprar</h3>
+      <div class="row">
+        <h5 class="col-1"></h5>
+        <h5 class="col-2">Nombre</h5>
+        <h5 class="col-2">Costo</h5>
+        <h5 class="col-2">Cantidad</h5>
+        <h5 class="col-2">Subtotal</h5>
       </div>
+      <hr class="solid">
+      <div id="cart-prods">
+
+      </div>      
+      
+      <h3 class="pt-5 pb-4">Tipo de envío</h3>
+      <div class="form-group">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="checkPremium">
+          <label class="form-check-label" for="checkPremium">
+            Premium 2 a 5 días (15%)
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="checkExpress">
+          <label class="form-check-label" for="checkExpress">
+            Express 5 a 8 días (7%)
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="checkStandard">
+          <label class="form-check-label" for="checkStandard">
+            Standard 12 a 15 días (5%)
+          </label>
+        </div>
+      </div>
+      
+      <h3 class="pt-5 pb-4">Dirección de envío</h3>
+      <form>
+        <div class="form-row">
+          <div class="form-group col-5">
+            <label for="inputStreet">Calle</label>
+            <input type="email" class="form-control" id="inputStreet">
+          </div>
+          <div class="form-group col-2">
+            <label for="inputNumber">Número</label>
+            <input type="password" class="form-control" id="inputNumber">
+          </div>
+          <div class="form-group col-5">
+            <label for="inputCorner">Esquina</label>
+            <input type="text" class="form-control" id="inputCorner">
+          </div>
+        </div>
+      </form>
+      <hr class="solid">
     </div>
   </main>
+  
+  
   <footer class="text-muted">
     <div class="container">
       <p class="float-end">
