@@ -1,5 +1,9 @@
 let prod = []
 
+/**
+ * On DOMContentLoaded fetches the .json file indicated by the prodID localstorage item, then stores it on a variable and shows the product info,
+ * shows the products commentaries and shows the related products with each respective function.
+ */
 document.addEventListener("DOMContentLoaded", function(e){
     getJSONData(PRODUCT_INFO_URL + localStorage.getItem("prodID") + ".json").then(function(resultObj){
         if (resultObj.status === "ok")
@@ -19,32 +23,30 @@ document.addEventListener("DOMContentLoaded", function(e){
 function showProductsInfo(product){
 
         document.getElementById("prod-info-container").innerHTML += `
-        <div class="row"><h1 class="col-7">` + product.name + `</h1><button class="btn col-1 btn-lg btn-primary" type="button" onclick="addToCart()">Comprar</button></div>
+        <div class="row"><h1 class="col-7">${product.name}</h1><button class="btn col-1 btn-lg btn-primary" type="button" onclick="addToCart(${product.id})">Comprar</button></div>
         <hr class="solid">
         <h4>Precio</h4>
-        <p>` + product.currency + " " +  product.cost +  `</p>
+        <p>${product.currency + " " +  product.cost}</p>
         <h4>Descripción</h4>
-        <p>` + product.description+ `</p>
+        <p>${product.description}</p>
         <h4>Categoría</h4>
-        <p>` + product.category + `</p>
+        <p>${product.category}</p>
         <h4>Cantidad de vendidos</h4>
-        <p>` + product.soldCount + `</p>
-        <h4>Imágenes ilustrativas</h4>
+        <p>${product.soldCount}</p>
+        <h4 class="mb-4">Imágenes ilustrativas</h4>
         `
 
         for(let i = 0; i < product.images.length; i++){
             if(i === 0){
                 document.getElementById("prodCarousel").innerHTML += `<div class="carousel-item active">
-                <img src="` + product.images[i] + `" class="d-block w-100" alt="Product image">
+                <img src="${product.images[i]}" class="d-block w-100" alt="Product image">
                 </div>`
             } else {
                 document.getElementById("prodCarousel").innerHTML += `<div class="carousel-item">
-                <img src="` + product.images[i] + `" class="d-block w-100" alt="Product image">
+                <img src="${product.images[i]}" class="d-block w-100" alt="Product image">
                 </div>`
 
             }
-            
-
         }
     };
 
@@ -57,26 +59,15 @@ function showProductsRelated(product){
     for(const relatedProd of product.relatedProducts){
         document.getElementById("relatedThumb").innerHTML += `
         <div class "col">
-            <div class="card h-90" id="`+ relatedProd.id +`" style="width: 15rem;">
-                <img class="card-img-top" src="` + relatedProd.image + `" alt="Card image cap">
+            <div class="card h-90 cursor-active" id="${relatedProd.id}" style="width: 15rem;" onclick="redirectToProdInfo(${relatedProd.id})">
+                <img class="card-img-top" src="${relatedProd.image}" alt="Card image cap">
                 <div class="card-footer">
-                    <p>` + relatedProd.name + `</p>
+                    <p>${relatedProd.name}</p>
                 </div>
             </div>
         </div>`
     }
-
-    
-    for(const relatedProd of product.relatedProducts){
-
-        document.getElementById(relatedProd.id).addEventListener("click", function() {
-            localStorage.setItem("prodID", relatedProd.id);
-            window.location = "product-info.html"
-
-        })
-    }
-
-}   
+}
 
 /**
  * Gets the JSON data for the comments of the current product and iterates through them with the showComment function.
@@ -114,18 +105,16 @@ function showStars(starsNum){
  * @param {string} description 
  */
 function showComment(user, date, stars, description){
-    let htmlContentToAppend = ""
     
-    htmlContentToAppend += `
+    document.getElementById("prod-comms-container").innerHTML += `
     <div class="list-group-item list-group-item-action">
         <div class="row">  
-            <div> `+ user +` - `+ date +` - `+ showStars(stars) +`</div>
-            <div>`+ description +`</div>          
+            <div>${user +` - `+ date +` - `+ showStars(stars)}</div>
+            <div>${description}</div>          
         </div>
         </div>
     </div>
     `
-    document.getElementById("prod-comms-container").innerHTML += htmlContentToAppend
 }
 
 /**
@@ -139,9 +128,13 @@ function showUserComm(){
 }
 
 /**
- * Adds the currents products id to the localstorage string list corresponding to the users cart.
+ * Adds the given product id to the localstorage string list corresponding to the users cart.
  */
-function addToCart(){
-    localStorage.getItem("cartProdsStr") ? null : localStorage.setItem("cartProdsStr", "")
-    localStorage.setItem("cartProdsStr", localStorage.getItem("cartProdsStr") + " " + prod.id) 
+function addToCart(productID){
+
+    if(!(localStorage.getItem("cartProdsStr"))){
+        localStorage.setItem("cartProdsStr", "")}
+
+    if(!(localStorage.getItem("cartProdsStr").includes(productID))){
+        localStorage.setItem("cartProdsStr", localStorage.getItem("cartProdsStr") + " " + productID)}        
 }

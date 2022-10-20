@@ -10,8 +10,7 @@ document.addEventListener("DOMContentLoaded", function(e){
             cat = resultObj.data;
             productsArray = cat.products
             showProductsList(productsArray);
-        }
-    });
+        }});
 });
 
 /**
@@ -32,7 +31,6 @@ function sortByLessEx(){
         return  x.cost - y.cost;
     })
     showProductsList(productsArray);
-
 }
 
 /**
@@ -43,7 +41,6 @@ function sortByRelevant(){
         return y.soldCount - x.soldCount;
     })
     showProductsList(productsArray);
-
 }
 
 /**
@@ -63,7 +60,6 @@ function limpiar(){
     document.getElementById("rangeFilterCountMax").value = ""
     productsArray = cat.products
     showProductsList(productsArray);
-
 }
 
 
@@ -77,18 +73,18 @@ function showProductsList(prodArray){
 
     for(const product of prodArray){ 
         htmlContentToAppend += `
-        <div class="list-group-item list-group-item-action" id="`+ product.id +`">
+        <div class="list-group-item list-group-item-action cursor-active" id="${product.id}"onclick="redirectToProdInfo(${product.id})">
             <div class="row">
                 <div class="col-3">
-                    <img src="` + product.image + `" alt="product image" class="img-thumbnail">
+                    <img src="${product.image}" alt="product image" class="img-thumbnail">
                 </div>
                 <div class="col">
                     <div class="d-flex w-100 justify-content-between">
                         <div class="mb-1">
-                        <h4>`+ product.name + " - " + product.cost + " " + product.currency +`</h4> 
-                        <p> `+ product.description +`</p> 
+                        <h4>${product.name + " - " + product.cost + " " + product.currency}</h4> 
+                        <p> ${product.description}</p> 
                         </div>
-                        <small class="text-muted">` + product.soldCount + ` vendidos</small> 
+                        <small class="text-muted">${product.soldCount} vendidos</small> 
                     </div>
 
                 </div>
@@ -96,20 +92,4 @@ function showProductsList(prodArray){
         </div>
         `
         document.getElementById("cat-list-container").innerHTML = htmlContentToAppend;
-
-
-    }
-
-    for(const product of document.getElementsByClassName("list-group-item list-group-item-action")){
-        
-        document.getElementById(product.id).addEventListener("click", function() {
-            localStorage.setItem("prodID", product.id);
-            window.location = "product-info.html"
-
-        })
-    }
-
-
-
-
-}
+    }}

@@ -45,3 +45,21 @@ let getJSONData = function(url){
 document.addEventListener("DOMContentLoaded", function(e){
   document.getElementById("navEmail").innerHTML +=  localStorage.getItem("userEmail");
   });
+
+/**
+ * Sets the localStorage item that stores the ID of the product whose information we want to see to the given ID, then redirects to the product information page.
+ * @param {number} productID 
+ */
+ function redirectToProdInfo(productID){
+  localStorage.setItem("prodID", productID);
+  window.location = "product-info.html"
+}
+
+/**
+ * Sets the localStorage item that stores the ID of the category whose information we want to see to the given ID, then redirects to the category display page.
+ * @param {number} productID 
+ */
+ function redirectToCatInfo(categoryID){
+  localStorage.setItem("catID", categoryID);
+  window.location = "products.html"
+}
