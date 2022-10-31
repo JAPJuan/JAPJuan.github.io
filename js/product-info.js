@@ -126,15 +126,3 @@ function showUserComm(){
 
     showComment(localStorage.getItem("userEmail"), formattedDate , document.getElementById("commStars").value,  document.getElementById("commDesc").value)
 }
-
-/**
- * Adds the given product id to the localstorage string list corresponding to the users cart.
- */
-function addToCart(productID){
-
-    if(!(localStorage.getItem("cartProdsStr"))){
-        localStorage.setItem("cartProdsStr", "")}
-
-    if(!(localStorage.getItem("cartProdsStr").includes(productID))){
-        localStorage.setItem("cartProdsStr", localStorage.getItem("cartProdsStr") + " " + productID)}        
-}

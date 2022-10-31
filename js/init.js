@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function(e){
   });
 
 /**
- * Sets the localStorage item that stores the ID of the product whose information we want to see to the given ID, then redirects to the product information page.
+ * Sets the localStorage item that stores the ID of the product which information we want to see to the given ID, then redirects to the product information page.
  * @param {number} productID 
  */
  function redirectToProdInfo(productID){
@@ -56,10 +56,22 @@ document.addEventListener("DOMContentLoaded", function(e){
 }
 
 /**
- * Sets the localStorage item that stores the ID of the category whose information we want to see to the given ID, then redirects to the category display page.
- * @param {number} productID 
+ * Sets the localStorage item that stores the ID of the category which information we want to see to the given ID, then redirects to the category display page.
+ * @param {number} categoryID 
  */
  function redirectToCatInfo(categoryID){
   localStorage.setItem("catID", categoryID);
   window.location = "products.html"
+}
+
+/**
+ * Adds the given product id to the localstorage string list corresponding to the users cart.
+ */
+ function addToCart(productID){
+
+  if(!(localStorage.getItem("cartProdsStr"))){
+      localStorage.setItem("cartProdsStr", "")}
+
+  if(!(localStorage.getItem("cartProdsStr").includes(productID))){
+      localStorage.setItem("cartProdsStr", localStorage.getItem("cartProdsStr") + " " + productID)}        
 }
