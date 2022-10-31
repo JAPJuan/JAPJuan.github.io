@@ -46,62 +46,165 @@
   
   <main>
     <div class="container pt-4">
-      <h1>Carrito de compras</h1>
+      <form class="needs-validation" novalidate>
+        <h1>Carrito de compras</h1>
       
-      <h3 class="pt-5 pb-4">Artículos a comprar</h3>
-      <div class="row">
-        <h5 class="col-1"></h5>
-        <h5 class="col-2">Nombre</h5>
-        <h5 class="col-2">Costo</h5>
-        <h5 class="col-2">Cantidad</h5>
-        <h5 class="col-2">Subtotal</h5>
-        <div class="col-3"><i class="fa fa-trash" onclick="cleanCart()"></i></div>
-      </div>
-      <hr class="solid">
-      <div id="cart-prods">
+        <h3 class="pt-5 pb-4">Artículos a comprar</h3>
+        <div class="row">
+          <h5 class="col-1"></h5>
+          <h5 class="col-2">Nombre</h5>
+          <h5 class="col-2">Costo</h5>
+          <h5 class="col-2">Cantidad</h5>
+          <h5 class="col-2">Subtotal</h5>
+        </div>
+        <hr class="solid">
+        <div id="cart-prods">
+  
+        </div>      
+        
+        <h3 class="pt-5 pb-4">Tipo de envío</h3>
+        <div class="form-group">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="radioShippType" value="15" id="checkPremium" oninput="shippTypeChecker(this)" required autocomplete="off">
+            <label class="form-check-label" for="radioPremium">
+              Premium 2 a 5 días (15%)
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="radioShippType" value="7" id="checkExpress" oninput="shippTypeChecker(this)" required autocomplete="off"> 
+            <label class="form-check-label" for="radioExpress">
+              Express 5 a 8 días (7%)
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="radioShippType" value="5" id="checkStandard" oninput="shippTypeChecker(this)" required autocomplete="off">
+            <label class="form-check-label" for="radioStandard">
+              Standard 12 a 15 días (5%)
+            </label>
+            <div class="invalid-feedback">Selecciona uno de los tipos de envío</div>
+          </div>
+        </div>
+        
+        <h3 class="pt-4 pb-4">Dirección de envío</h3>
 
-      </div>      
-      
-      <h3 class="pt-5 pb-4">Tipo de envío</h3>
-      <div class="form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="checkPremium">
-          <label class="form-check-label" for="checkPremium">
-            Premium 2 a 5 días (15%)
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="checkExpress">
-          <label class="form-check-label" for="checkExpress">
-            Express 5 a 8 días (7%)
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="checkStandard">
-          <label class="form-check-label" for="checkStandard">
-            Standard 12 a 15 días (5%)
-          </label>
-        </div>
-      </div>
-      
-      <h3 class="pt-5 pb-4">Dirección de envío</h3>
-      <form>
-        <div class="form-row">
-          <div class="form-group col-5">
-            <label for="inputStreet">Calle</label>
-            <input type="email" class="form-control" id="inputStreet">
+          <div class="row">
+            <div class="form-group col-4">
+              <label for="inputStreet">Calle</label>
+              <input type="text" class="form-control" id="inputStreet" required>
+              <div class="invalid-feedback">Ingresa una calle</div>
+            </div>
+            <div class="form-group col-2">
+              <label for="inputNumber">Número</label>
+              <input type="text" class="form-control" id="inputNumber" required>
+              <div class="invalid-feedback">Ingresa un número</div>
+            </div>
+            <div class="form-group col-7">
+              <label for="inputCorner">Esquina</label>
+              <input type="text" class="form-control" id="inputCorner" required>
+              <div class="invalid-feedback">Ingresa una esquina</div>
+            </div>
           </div>
-          <div class="form-group col-2">
-            <label for="inputNumber">Número</label>
-            <input type="password" class="form-control" id="inputNumber">
+        
+        <h3 class="pt-3 pb-3">Costos</h3>
+        <div class="list-group">
+          <div class="list-group-item w-75">
+            <div class="row">
+              <div class="col-7">Subtotal</div><div class="col-5" id="totalSubtotal">0 USD</div>
+              <div>Costo unitario del producto por cantidad</div>
           </div>
-          <div class="form-group col-5">
-            <label for="inputCorner">Esquina</label>
-            <input type="text" class="form-control" id="inputCorner">
+          </div>
+          <div class="list-group-item w-75">
+            <div class="row"><div class="col-7">Costo de envío</div><div class="col-5" id="shippingCost">0 USD</div>
+              <div>Según el tipo de envío</div>
+            </div>
+          </div>
+          <div class="list-group-item w-75">
+            <div class="row"><div class="col-7">Total ($)</div><div class="col-5 fw-bold" id="totalCost">0 USD</div>
+          </div>
+          </div>  
+        </div>
+        
+        <h3 class="pt-3 pb-3">Forma de pago</h3>
+        <div class="pb-4">
+          <div class="row" id="modalToggler">
+            <div class="col-2" id="payMethodSelected">No se ha seleccionado</div>
+            <div type="button" class="col-6 text-primary text-decoration-underline" data-bs-toggle="modal" data-bs-target="#payMethodModal">
+              Seleccionar
+            </div>
+          </div>
+          <div class="invalid-feedback">Debe seleccionar una forma de pago e ingresar los datos requeridos</div>    
+        </div>   
+  
+        <div class="modal fade" id="payMethodModal" tabindex="-1" aria-labelledby="payMethodModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="payMethodModalLabel">Forma de pago</h5>
+              </div>
+              <div class="modal-body">
+                
+                <div class="form-check">
+
+                  <input class="form-check-input" type="radio" name="payMethodRadio" id="payMethodRadio1" value="option1" onclick="disableUncheckedForm(payMethodRadio2, payMethodRadio1)" required autocomplete="off">
+                  <div class="invalid-feedback">Elige un metodo de pago</div>
+                  <label class="form-check-label" for="payMethodRadio1">
+                    Tarjeta de crédito
+                  </label>
+
+                  <hr class="solid">
+                  <div class="form-row">
+                    <div class="col-6">
+                      <label class="form-check-label" for="credNum">Número de tarjeta</label>
+                      <input type="text" class="form-control" id="credNum" required>
+                      <div class="invalid-feedback">Ingresa un número de tarjeta</div>
+                    </div>
+                    <div class="col-6">
+                      <label for="code">Código de seg.</label>
+                      <input type="text" class="form-control" id="code" required>
+                      <div class="invalid-feedback">Ingresa tu código de seguimiento</div>
+                    </div>
+                    <div class="col-6">
+                      <label for="expireDate">Vencimiento(MM/AA)</label>
+                      <input type="text" class="form-control" id="expireDate" required>
+                      <div class="invalid-feedback">Ingresa la fecha de vencimiento de tu tarjeta</div>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="form-check pt-3">
+
+                  <input class="form-check-input" type="radio" name="payMethodRadio" id="payMethodRadio2" value="option1" onclick="disableUncheckedForm(payMethodRadio1, payMethodRadio2)" required autocomplete="off">
+                  <div class="invalid-feedback">Elige un metodo de pago</div>
+                  <label class="form-check-label" for="payMethodRadio2">
+                    Transferencia bancaria
+                  </label>
+
+                  <hr class="solid">
+                  <div class="form-row">
+                    <div class="col-6">
+                      <label for="accountNum">Número de cuenta</label>
+                      <input type="text" class="form-control" id="accountNum" required>
+                      <div class="invalid-feedback">Ingresa tu número de cuenta</div>
+                    </div>
+                  </div>
+                </div>
+  
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" onclick="showModalValidity()">Cerrar</button>
+              </div>
+            </div>
           </div>
         </div>
-      </form>
-      <hr class="solid">
+        
+        <button type="submit" class="btn btn-primary" id="formSubmit">Finalizar compra</button>
+
+        <div class="alert alert-success alert-dismissible fade show" role="alert" hidden>
+          ¡Realizaste tu compra con éxito!
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick="submitForm()"></button>
+        </div>
+
+      </form>      
     </div>
   </main>
   
