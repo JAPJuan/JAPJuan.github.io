@@ -1,4 +1,6 @@
 let user = {};
+let imagen = ""
+let profilePicElement = 
 
 document.addEventListener("DOMContentLoaded", function(e){
   
@@ -11,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function(e){
       document.getElementById(property[0]).value = property[1]
     }}
 
-  if(user.profilePicture !== "" && user.profilePicture){document.getElementById("profilePicture").src = user.profilePicture}
+  if(user.profilePicture){profilePicElement.src = user.profilePicture}
 });
 
 (function () {
@@ -32,15 +34,13 @@ document.addEventListener("DOMContentLoaded", function(e){
     } 
       
     user.profilePicture = imagen
-    document.getElementById("profilePicture").src = user.profilePicture
+    if(user.profilePicture){profilePicElement.src = user.profilePicture}
     localStorage.setItem("userInfo", JSON.stringify(user)) 
   }
   
   formToValidate.classList.add('was-validated')
   }, false)    
 })()
-
-var imagen = ""
 
 function profilePictureHandle(){
   const reader = new FileReader();
@@ -50,7 +50,7 @@ function profilePictureHandle(){
     document.getElementById("profilePicture").src = imagen    
   }, true);
   
-  reader.readAsDataURL(document.getElementById("profilePictureInput").files[0]);
+  reader.readAsDataURL(profilePicElement.files[0]);
 }
 
 
