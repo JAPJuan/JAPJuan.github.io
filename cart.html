@@ -9,6 +9,9 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <script src="js/bootstrap.bundle.min.js" defer></script>
+  <script src="js/init.js" defer></script>
+  <script src="js/cart.js" defer></script>
 </head>
 
 <body>
@@ -18,10 +21,10 @@
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="collapse navbar-collapse">
         <ul class="navbar-nav w-100 justify-content-between">
           <li class="nav-item">
-            <a class="nav-link" href="home.html">Inicio</a>
+            <a class="nav-link active" href="home.html">Inicio</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="categories.html">Categorías</a>
@@ -29,15 +32,8 @@
           <li class="nav-item">
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
-          <li class="nav-item">
-            <div class="dropdown">
-              <a class="nav-link dropdown-toggle" href="" id="navEmail" data-bs-toggle="dropdown"></a>
-              <ul class="dropdown-menu" aria-labelledby="navEmail">
-                <li><a class="dropdown-item" href="my-profile.html">Mi perfil</a></li>
-                <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>
-                <li><a class="dropdown-item" href="index.html">Cerrar sesión</a></li>
-              </ul>
-            </div>
+          <li class="nav-item" id="navbarNav">
+
           </li>
         </ul>
       </div>
@@ -227,9 +223,6 @@
       <div></div>
     </div>
   </div>
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/init.js"></script>
-  <script src="js/cart.js"></script>
 </body>
 
 </html>
