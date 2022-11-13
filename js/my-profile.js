@@ -1,6 +1,5 @@
 let user = {};
 let imagen = ""
-let profilePicElement = 
 
 document.addEventListener("DOMContentLoaded", function(e){
   
@@ -13,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function(e){
       document.getElementById(property[0]).value = property[1]
     }}
 
-  if(user.profilePicture){profilePicElement.src = user.profilePicture}
+  if(user.profilePicture !== "" && user.profilePicture){document.getElementById("profilePicture").src = user.profilePicture}
 });
 
 (function () {
@@ -34,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function(e){
     } 
       
     user.profilePicture = imagen
-    if(user.profilePicture){profilePicElement.src = user.profilePicture}
+    if(user.profilePicture){document.getElementById("profilePicture").src = user.profilePicture}
     localStorage.setItem("userInfo", JSON.stringify(user)) 
   }
   
@@ -47,10 +46,10 @@ function profilePictureHandle(){
   
   reader.addEventListener("load",() => {  
     imagen = reader.result
-    document.getElementById("profilePicture").src = imagen    
+    document.getElementById("profilePicture").src = imagen  
   }, true);
   
-  reader.readAsDataURL(profilePicElement.files[0]);
+  reader.readAsDataURL(document.getElementById("profilePictureInput").files[0]);
 }
 
 
