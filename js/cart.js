@@ -1,5 +1,5 @@
 let shippingCostPercentage = 0
-let formIsCorrect = false
+
 /**
  * On DOMContentLoaded checks for articles on the json file for the user of id 25801 and adds their ids to the string list item on localStorage, 
  * then checks for every product and if their id is on the string list it adds them to the cart with the function showProduct.
@@ -31,16 +31,17 @@ document.addEventListener("DOMContentLoaded", function(e){
  * @param {object} prodObj
  */
  function showProduct(prodObj){
-    if(prodObj.currency == "UYU"){prodObj.cost = Math.round(prodObj.cost / 41.01)}
+    const {currency, cost , id, image, name} = prodObj  
+    if(currency == "UYU"){cost = Math.round(cost / 41.01)}
     
     document.getElementById("cart-prods").innerHTML += `
-        <div class="row pt-1" id="${prodObj.id}">
-          <div class="col-1 cursor-active" onclick="redirectToProdInfo(${prodObj.id})"><img src=${prodObj.image} alt="product image" class="w-75"></div>
-          <div class="col-2 cursor-active" onclick="redirectToProdInfo(${prodObj.id})">${prodObj.name}</div>
-          <div class="col-2">USD ${prodObj.cost}</div>
-          <div class="col-2"><input class="form-control w-75" type="text" onkeyup="calcSubtotal(this,${prodObj.cost})" required><div class="invalid-feedback">Indica la cantidad deseada del producto</div></input></div>
+        <div class="row pt-1" id="${id}">
+          <div class="col-1 cursor-active" onclick="redirectToProdInfo(${id})"><img src=${image} alt="product image" class="w-75"></div>
+          <div class="col-2 cursor-active" onclick="redirectToProdInfo(${id})">${name}</div>
+          <div class="col-2">USD ${cost}</div>
+          <div class="col-2"><input class="form-control w-75" type="text" onkeyup="calcSubtotal(this,${cost})" required><div class="invalid-feedback">Indica la cantidad deseada del producto</div></input></div>
           <div class="row col-2">USD <div class="col-6 gx-2">0</div></div>
-          <div class="col-3"><i class="fa fa-trash cursor-active" onclick="removeItem(${prodObj.id})"></i></div>
+          <div class="col-3"><i class="fa fa-trash cursor-active" onclick="removeItem(${id})"></i></div>
         </div>
         `
     calcCosts();
@@ -100,6 +101,11 @@ function removeItem(Id){
     calcCosts()
 }
 
+/**
+ * Disables the unchecked form and changes the payment method shown besides the button to the one selected
+ * @param {Element} uncheckedForm 
+ * @param {Element} checkedForm 
+ */
 function disableUncheckedForm(uncheckedForm,checkedForm){
 
     let formsToDisable = uncheckedForm.parentElement.querySelectorAll(".form-control")
@@ -110,6 +116,10 @@ function disableUncheckedForm(uncheckedForm,checkedForm){
     checkedForm.id === "payMethodRadio1" ? document.getElementById("payMethodSelected").innerHTML = "Tarjeta de crédito" : document.getElementById("payMethodSelected").innerHTML = "Transferencia bancaria"
 }
 
+/**
+ * Shows if the inputs inside of the modal are correct.
+ * @returns 
+ */
 function showModalValidity(){
 
     for(form of document.getElementById("payMethodModal").querySelectorAll("[required]")){
@@ -124,6 +134,9 @@ function showModalValidity(){
     }
 }
 
+/**
+ * Submits the main form of the page
+ */
 function submitForm(){
     document.querySelector('.needs-validation').submit()
 }

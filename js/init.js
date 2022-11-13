@@ -16,62 +16,96 @@ let hideSpinner = function(){
 }
 
 let getJSONData = function(url){
-    let result = {};
-    showSpinner();
-    return fetch(url)
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      }else{
-        throw Error(response.statusText);
-      }
-    })
-    .then(function(response) {
-          result.status = 'ok';
-          result.data = response;
-          hideSpinner();
-          return result;
-    })
-    .catch(function(error) {
-        result.status = 'error';
-        result.data = error;
-        hideSpinner();
-        return result;
-    });
+  let result = {};
+  showSpinner();
+  return fetch(url)
+  .then(response => {
+    if (response.ok) {
+      return response.json();
+    }else{
+      throw Error(response.statusText);
+    }
+  })
+  .then(function(response) {
+    result.status = 'ok';
+    result.data = response;
+    hideSpinner();
+    return result;
+  })
+  .catch(function(error) {
+    result.status = 'error';
+    result.data = error;
+    hideSpinner();
+    return result;
+  });
 }
 
 
 
 document.addEventListener("DOMContentLoaded", function(e){
-  document.getElementById("navEmail").innerHTML +=  localStorage.getItem("userEmail");
-  });
+  const navItem = document.getElementById("navbarNav")
+  
+  if(localStorage.getItem("userInfo")){
+    
+    navItem.innerHTML += `
+    <div class="dropdown">
+    <a class="nav-link dropdown-toggle" href="" data-bs-toggle="dropdown">` +  JSON.parse(localStorage.getItem("userInfo")).email + `</a>
+    <ul class="dropdown-menu" aria-labelledby="navEmail">
+    <li><a class="dropdown-item" href="my-profile.html">Mi perfil</a></li>
+    <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>
+    <li><a class="dropdown-item" onclick="logOut()">Cerrar sesión</a></li>
+    </ul>
+    </div>
+    `
+    navItem.previousElementSibling.removeAttribute("hidden", "")
+    
+  } else { 
+    navItem.innerHTML += `<a class="nav-link" href="index.html">Iniciar sesión</a>`
+    navItem.previousElementSibling.setAttribute("hidden", "")
+  }
+});
 
 /**
- * Sets the localStorage item that stores the ID of the product which information we want to see to the given ID, then redirects to the product information page.
- * @param {number} productID 
- */
- function redirectToProdInfo(productID){
+* Sets the localStorage item that stores the ID of the product which information we want to see to the given ID, then redirects to the product information page.
+* @param {number} productID 
+*/
+function redirectToProdInfo(productID){
   localStorage.setItem("prodID", productID);
   window.location = "product-info.html"
 }
 
 /**
- * Sets the localStorage item that stores the ID of the category which information we want to see to the given ID, then redirects to the category display page.
- * @param {number} categoryID 
- */
- function redirectToCatInfo(categoryID){
+* Sets the localStorage item that stores the ID of the category which information we want to see to the given ID, then redirects to the category display page.
+* @param {number} categoryID 
+*/
+function redirectToCatInfo(categoryID){
   localStorage.setItem("catID", categoryID);
   window.location = "products.html"
 }
 
 /**
- * Adds the given product id to the localstorage string list corresponding to the users cart.
- */
- function addToCart(productID){
-
+* Adds the given product id to the localstorage string list corresponding to the users cart.
+*/
+function addToCart(productID){
+  if(enforceLogin()){ return }
+  
   if(!(localStorage.getItem("cartProdsStr"))){
-      localStorage.setItem("cartProdsStr", "")}
-
-  if(!(localStorage.getItem("cartProdsStr").includes(productID))){
+    localStorage.setItem("cartProdsStr", "")}
+    
+    if(!(localStorage.getItem("cartProdsStr").includes(productID))){
       localStorage.setItem("cartProdsStr", localStorage.getItem("cartProdsStr") + " " + productID)}        
-}
+    }
+    
+function enforceLogin(){
+   if (!localStorage.getItem("userInfo")){
+      window.location = "index.html"
+        return true
+      }
+    }
+    
+function logOut(){
+      if(localStorage.getItem("userInfo")){
+        localStorage.removeItem("userInfo")
+        window.location = "home.html"
+      }
+    }

@@ -21,29 +21,30 @@ document.addEventListener("DOMContentLoaded", function(e){
  * @param {object} product 
  */
 function showProductsInfo(product){
+    const {name, id, currency, cost, description, category, soldCount, images} = product
 
         document.getElementById("prod-info-container").innerHTML += `
-        <div class="row"><h1 class="col-7">${product.name}</h1><button class="btn col-1 btn-lg btn-primary" type="button" onclick="addToCart(${product.id})">Comprar</button></div>
+        <div class="row"><h1 class="col-7">${name}</h1><button class="btn col-1 btn-lg btn-primary" type="button" onclick="addToCart(${id})">Comprar</button></div>
         <hr class="solid">
         <h4>Precio</h4>
-        <p>${product.currency + " " +  product.cost}</p>
+        <p>${currency + " " +  cost}</p>
         <h4>Descripción</h4>
-        <p>${product.description}</p>
+        <p>${description}</p>
         <h4>Categoría</h4>
-        <p>${product.category}</p>
+        <p>${category}</p>
         <h4>Cantidad de vendidos</h4>
-        <p>${product.soldCount}</p>
+        <p>${soldCount}</p>
         <h4 class="mb-4">Imágenes ilustrativas</h4>
         `
 
-        for(let i = 0; i < product.images.length; i++){
+        for(let i = 0; i < images.length; i++){
             if(i === 0){
                 document.getElementById("prodCarousel").innerHTML += `<div class="carousel-item active">
-                <img src="${product.images[i]}" class="d-block w-100" alt="Product image">
+                <img src="${images[i]}" class="d-block w-100" alt="Product image">
                 </div>`
             } else {
                 document.getElementById("prodCarousel").innerHTML += `<div class="carousel-item">
-                <img src="${product.images[i]}" class="d-block w-100" alt="Product image">
+                <img src="${images[i]}" class="d-block w-100" alt="Product image">
                 </div>`
 
             }
